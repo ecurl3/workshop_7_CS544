@@ -46,7 +46,7 @@ def print_preferences_before(preference):
             print(f'{preference[i][j]}', end='')
         print('\n')'''
                 
-                
+          #sos please someone help me      
 
 # generates random preference list given a size from user
 def gen_random_preference(n):
