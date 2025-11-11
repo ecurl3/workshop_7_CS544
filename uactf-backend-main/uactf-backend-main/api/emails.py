@@ -3,7 +3,7 @@ from pydantic import ValidationError
 from flask import current_app
 from models import EmailRequest, EmailWithAttachmentRequest
 import logging
-
+#ihopethisworks
 resend.api_key = current_app.config["RESEND_API_KEY"]
 sender_email_account = current_app.config["SENDER_EMAIL_ACCOUNT"]
 
