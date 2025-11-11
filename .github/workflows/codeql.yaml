@@ -1,10 +1,11 @@
-name: Security — CodeQL for DVWA
+name: Security — CodeQL (PHP)
 
 on:
   push:
     branches: [ main ]
   pull_request:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0' # optional: run weekly
 
 permissions:
   contents: read
@@ -12,11 +13,13 @@ permissions:
 
 jobs:
   analyze:
-    name: Analyze DVWA (PHP)
+    name: Analyze DVWA PHP Code
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        language: ['cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby', 'swift', 'php']
+        language: [ 'php' ]  # Only PHP needed
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,7 +27,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: 'php'
+          languages: ${{ matrix.language }}
           queries: security-extended
 
       - name: Autobuild
@@ -32,3 +35,5 @@ jobs:
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
