@@ -1,42 +1,34 @@
-name: Security — CodeQL
+name: Security — CodeQL for DVWA
 
 on:
   push:
     branches: [ main ]
   pull_request:
-
+  workflow_dispatch:
 
 permissions:
   contents: read
-  security-events: write   # needed to upload results to Code scanning
+  security-events: write
 
 jobs:
   analyze:
-    name: Analyze (${{ matrix.language }})
+    name: Analyze DVWA (PHP)
     runs-on: ubuntu-latest
-    timeout-minutes: 60
     strategy:
-      fail-fast: false
       matrix:
-        # language: [ 'javascript', 'python', 'ccpp', 'csharp', 'go', 'java-kotlin', 'ruby', 'swift', 'php']
-        language: ['python', 'php', 'javascript']
-        
+        language: ['cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby', 'swift', 'php']
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: ${{ matrix.language }}
-          # queries: security-extended,security-and-quality # optional suites
+          languages: 'php'
+          queries: security-extended
 
-      # For compiled languages, try Autobuild first (ignored for script languages)
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
-        with:
-          category: "/language:${{ matrix.language }}"
-
