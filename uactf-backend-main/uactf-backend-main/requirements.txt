@@ -1,9 +1,0 @@
-flask
-pymongo
-pydantic
-python-dotenv
-pytest-flask
-flask-cors
-PyJWT
-bcrypt
-resend
