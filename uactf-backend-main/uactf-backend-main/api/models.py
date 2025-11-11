@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 from pydantic import BaseModel
 from typing import Optional, List
-
+#nfbsdwigbhrewiuogbrewuoigbr #1
 class Hint(BaseModel):
     hint: str
     point_cost: int
